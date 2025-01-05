@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:15
+    container_name: fruityapp_postgres
+    environment:
+      POSTGRES_USER: fruityuser
+      POSTGRES_PASSWORD: fruitypassword
+      POSTGRES_DB: fruitydb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  postgres_data:
