@@ -13,4 +13,6 @@ class Fruit extends Model
         'price',
         'stock'
     ];
+
+    protected $hidden = ['created_at', 'updated_at'];
 }

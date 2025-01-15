@@ -11,4 +11,13 @@ Route::get('/user', function (Request $request) {
 
 Route::prefix('/v1')->group(function () {
     Route::post('/fruits',[FruitController::class,'store']);
+
+    Route::get('/fruits',[FruitController::class,'index']);
+
+    Route::get('/fruits/{id}',[FruitController::class,'show']);
+
+    Route::put('/fruits/{id}',[FruitController::class,'update']);
+
+    Route::delete('/fruits/{id}',[FruitController::class,'destroy']);
+
 });
