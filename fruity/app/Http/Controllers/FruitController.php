@@ -32,6 +32,7 @@
                 'description' => 'required|string|max:150',
                 'price' => 'required|numeric',
                 'stock' => 'required|integer',
+                'category_id' => 'required|exists:categories,category_id',
             ]);
 
             Fruit::create($validated);
@@ -52,7 +53,6 @@
                 'data' => $fruit
             ], 200);
         }
-
 
 
         /**

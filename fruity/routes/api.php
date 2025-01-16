@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FruitController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,4 +21,11 @@ Route::prefix('/v1')->group(function () {
 
     Route::delete('/fruits/{id}',[FruitController::class,'destroy']);
 
+    Route::get('/categories',[CategoryController::class,'index']);
+
+    Route::post('/categories',[CategoryController::class,'store']);
+
+    Route::get('/categories/{id}',[CategoryController::class,'show']);
+
+    Route::delete('/categories/{id}',[CategoryController::class,'destroy']);
 });
