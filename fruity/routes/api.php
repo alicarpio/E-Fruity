@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FruitController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,4 +29,10 @@ Route::prefix('/v1')->group(function () {
     Route::get('/categories/{id}',[CategoryController::class,'show']);
 
     Route::delete('/categories/{id}',[CategoryController::class,'destroy']);
+
+    Route::get('/orders',[OrderController::class,'index']);
+
+    Route::get('/orders/{id}',[OrderController::class,'show']);
+
+    Route::post('/orders',[OrderController::class,'store']);
 });
