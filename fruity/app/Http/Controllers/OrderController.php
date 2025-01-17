@@ -39,7 +39,7 @@ class OrderController extends Controller
     {
         try {
             $validated = $request->validate([
-                'order_date' => 'required|date|unique:categories',
+                'order_date' => 'required|date',
                 'order_status' => 'required|string', // poner las categorías
                 'order_total' =>'required|double'
             ]);
