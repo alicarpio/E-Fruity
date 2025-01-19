@@ -38,4 +38,8 @@ Route::prefix('/v1')->group(function () {
     Route::post('/orders',[OrderController::class,'store']);
 
     Route::get('/orderDetails',[OrderDetailController::class,'index']);
+
+    Route::get('/orderDetails/{id}',[OrderDetailController::class,'show']);
+
+    Route::post('/orderDetails',[OrderDetailController::class,'store']);
 });
