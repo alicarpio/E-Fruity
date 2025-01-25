@@ -1,12 +1,28 @@
 <script setup lang="ts">
-import NavBar from '@/components/NavBar.vue';
+import NavBar from '@/components/NavBar.vue'
 </script>
 
 <template>
-<NavBar />
-  <h1 class="text-[2rem] font-primary underline">    Hello world!  </h1>
+  <NavBar />
+  <section>
+    <img
+      src="../assets/fruit.jpg"
+      alt="frutas"
+      class="w-full h-[40rem] object-cover transform brightness-90 rotate-180"
+    />
+    <h1
+      class="absolute top-72 left-1/9 font-bold text-[3.3rem] transform -translate-x-1/2 text-[#173334] drop-shadow-lg"
+    >
+      Frutas
+    </h1>
+    <p
+      class="absolute top-[26rem] left-[24.2rem] w-[40rem] transform -translate-x-1/2 -translate-y-1/2 text-lg drop-shadow-md"
+    >
+      Estos superalimentos están repletos de nutrientes vitales, como vitaminas y minerales, que
+      pueden ayudarle a mantenerse sano. Además, son fáciles de disfrutar: ¡sólo tienes que añadir
+      agua y dejar que se haga la magia!
+    </p>
+  </section>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

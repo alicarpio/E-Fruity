@@ -1,24 +1,15 @@
-import flowbite from "flowbite/plugin";
-import { addDynamicIconSelectors } from "@iconify/tailwind";
-
-/** @type {import('tailwindcss').Config} */
-export default {
-  darkMode: "class",
+module.exports = {
   content: [
-    "./index.html",
-    "./src/**/*.{vue,js,ts,jsx,tsx}",
-    "./node_modules/flowbite/**/*.js",
+    './src/**/*.{html,js}', // ajusta las rutas de tus archivos
   ],
   theme: {
     extend: {
       colors: {
-        primary: "#173334",
-        secondary: "#FFBE30",
-        accent: "#11AF22",
-        surface: "#ffffff",
-        "surface-dark": "#D9D9D9",
+        'custom-blue': '#1E40AF',
+        'custom-green': '#10B981',
+        'custom-gray': '#6B7280',
       },
     },
   },
-  plugins: [flowbite, addDynamicIconSelectors()],
-};
+  plugins: [],
+}
