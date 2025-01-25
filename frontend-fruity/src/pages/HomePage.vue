@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import NavBar from '@/components/NavBar.vue'
+import Footer from '@/components/Footer.vue'
 </script>
 
 <template>
@@ -16,13 +17,15 @@ import NavBar from '@/components/NavBar.vue'
       Frutas
     </h1>
     <p
-      class="absolute top-[26rem] left-[24.2rem] w-[40rem] transform -translate-x-1/2 -translate-y-1/2 text-lg drop-shadow-md"
+      class="absolute top-[26rem] left-[25.2rem] w-[40rem] transform -translate-x-1/2 -translate-y-1/2 text-lg drop-shadow-md"
     >
       Estos superalimentos están repletos de nutrientes vitales, como vitaminas y minerales, que
       pueden ayudarle a mantenerse sano. Además, son fáciles de disfrutar: ¡sólo tienes que añadir
       agua y dejar que se haga la magia!
     </p>
   </section>
+
+  <Footer />
 </template>
 
 <style scoped></style>
