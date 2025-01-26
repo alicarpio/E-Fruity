@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import NavBar from '@/components/NavBar.vue';
-import Footer from '@/components/Footer.vue';
-import Product from '@/components/ProductCard.vue'; // Importa el componente Product
+import NavBar from '@/components/NavBar.vue'
+import Footer from '@/components/Footer.vue'
+import Product from '@/components/ProductCard.vue' // Importa el componente Product
 </script>
 
 <template>
@@ -20,7 +20,7 @@ import Product from '@/components/ProductCard.vue'; // Importa el componente Pro
       Frutas
     </h1>
     <p
-      class="absolute top-[26rem] left-[25.2rem] w-[40rem] transform -translate-x-1/2 -translate-y-1/2 text-lg drop-shadow-md"
+      class="absolute top-[26rem] left-[24.9rem] w-[40rem] transform -translate-x-1/2 -translate-y-1/2 text-lg drop-shadow-md"
     >
       Estos superalimentos están repletos de nutrientes vitales, como vitaminas y minerales, que
       pueden ayudarle a mantenerse sano. Además, son fáciles de disfrutar: ¡sólo tienes que añadir

@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -6,30 +6,35 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('../pages/HomePage.vue'), // Página principal
+      component: () => import('../pages/HomePage.vue'),
     },
     {
       path: '/admin',
       name: 'admin',
-      component: () => import('../pages/HomeAdmin.vue'), // Página principal
+      component: () => import('../pages/HomeAdmin.vue'),
     },
     {
       path: '/shopping-cart',
       name: 'shopping-cart',
-      component: () => import('../pages/ShoppingCart.vue'), // Página del carrito
+      component: () => import('../pages/ShoppingCart.vue'),
     },
     {
       path: '/create-product',
       name: 'create-product',
-      component: () => import('../pages/CreateProduct.vue'), // Página del carrito
+      component: () => import('../pages/CreateProduct.vue'),
     },
     {
       path: '/sales',
       name: 'sales',
-      component: () => import('../pages/ViewSales.vue'), // Página del carrito
+      component: () => import('../pages/ViewSales.vue'),
+    },
+
+    {
+      path: '/fruit-details',
+      name: 'fruit-details',
+      component: () => import('../pages/FruitDetails.vue'),
     },
   ],
-});
+})
 
-export default router;
-
+export default router
