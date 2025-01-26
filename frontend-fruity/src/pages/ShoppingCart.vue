@@ -1,7 +1,17 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import NavBar from '@/components/NavBar.vue';
 import Footer from '@/components/Footer.vue';
 import PorductShop from '@/components/PorductShop.vue';
+import Congratulation from '@/components/Congratulation.vue'; // Importamos el componente Congratulation
+
+// Bandera reactiva para alternar entre el carrito y la pantalla de confirmación
+const showCongratulation = ref(false);
+
+// Función para mostrar el componente Congratulation
+const handleOrder = () => {
+  showCongratulation.value = true;
+};
 </script>
 
 <template>
@@ -10,7 +20,7 @@ import PorductShop from '@/components/PorductShop.vue';
 
   <!-- Contenido Principal -->
   <main class="bg-gray-50 min-h-screen">
-    <section class="max-w-6xl mx-auto py-10 px-6">
+    <section v-if="!showCongratulation" class="max-w-6xl mx-auto py-10 px-6">
       <!-- Título -->
       <h1 class="text-2xl font-bold text-gray-800 mb-6">Carrito</h1>
 
@@ -31,18 +41,18 @@ import PorductShop from '@/components/PorductShop.vue';
 
       <!-- Detalles de Pago -->
       <div class="mt-6 bg-white rounded-lg shadow-lg p-6">
-        <h2 class="text-lg font-bold text-gray-800 mb-4">PAYMENT DETAILS</h2>
+        <h2 class="text-lg font-bold text-gray-800 mb-4">DETALLES DEL PAGO</h2>
         <ul class="text-gray-700 space-y-2">
           <li class="flex justify-between">
-            <span>Bag Total</span>
+            <span>Total del Pedido</span>
             <span class="font-bold">$774</span>
           </li>
           <li class="flex justify-between">
-            <span>Packaging</span>
-            <span class="text-green-500">Free</span>
+            <span>Empaque</span>
+            <span class="text-green-500">Gratis</span>
           </li>
           <li class="flex justify-between">
-            <span>Shipping Charges</span>
+            <span>Envío</span>
             <span class="font-bold">$50</span>
           </li>
         </ul>
@@ -55,9 +65,15 @@ import PorductShop from '@/components/PorductShop.vue';
       <!-- Botón Ordenar -->
       <button
         class="mt-6 w-full bg-yellow-400 text-white font-bold py-3 rounded-lg hover:bg-yellow-500 transition"
+        @click="handleOrder"
       >
-        Order
+        Ordenar
       </button>
+    </section>
+
+    <!-- Pantalla de Felicitaciones -->
+    <section v-else>
+      <Congratulation />
     </section>
   </main>
 
@@ -70,3 +86,4 @@ main {
   background-color: #f9fafb;
 }
 </style>
+
