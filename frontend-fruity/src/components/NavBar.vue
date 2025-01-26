@@ -31,9 +31,13 @@
         <i class="fas fa-heart"></i>
       </button>
       <!-- Carrito -->
-      <button title="Carrito">
+      <router-link
+        to="/shopping-cart"
+        title="Carrito"
+        class="text-white hover:text-yellow-400"
+      >
         <i class="fas fa-shopping-cart"></i>
-      </button>
+      </router-link>
     </div>
   </nav>
 </template>

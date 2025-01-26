@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -6,10 +6,15 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('../pages/HomePage.vue'),
+      component: () => import('../pages/HomePage.vue'), // Página principal
     },
-
+    {
+      path: '/shopping-cart',
+      name: 'shopping-cart',
+      component: () => import('../pages/ShoppingCart.vue'), // Página del carrito
+    },
   ],
-})
+});
 
-export default router
+export default router;
+
