@@ -6,12 +6,17 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('../pages/HomePage.vue'), // Página principal
+      component: () => import('../pages/HomeAdmin.vue'), // Página principal
     },
     {
       path: '/shopping-cart',
       name: 'shopping-cart',
       component: () => import('../pages/ShoppingCart.vue'), // Página del carrito
+    },
+    {
+      path: '/create-product',
+      name: 'create-product',
+      component: () => import('../pages/CreateProduct.vue'), // Página del carrito
     },
   ],
 });
