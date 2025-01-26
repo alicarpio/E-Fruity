@@ -22,6 +22,14 @@
 
     <!-- Íconos -->
     <div class="flex space-x-6 text-xl">
+      <!-- Inicio -->
+      <router-link
+        to="/"
+        title="Inicio"
+        class="text-white hover:text-yellow-400"
+      >
+        <i class="fas fa-home"></i>
+      </router-link>
       <!-- Perfil -->
       <button title="Perfil">
         <i class="fas fa-user"></i>
