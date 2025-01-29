@@ -25,7 +25,8 @@ import Footer from '@/components/Footer.vue'
       accumsan eu. Aenean est nibh, consequat nec est vel, ultricies pulvinar eros. Ut leo quam,
       aliquet nec neque quis, ullamcorper finibus leo. Etiam eget hendrerit urna. Ut eros arcu,
       faucibus sit amet nisi sit amet, mattis pulvinar diam. Suspendisse potenti. Nunc nec maximus
-      velit, sit amet semper mi.
+      velit, sit amet semper
+      <mi class=""></mi>
     </p>
   </section>
   <Footer />

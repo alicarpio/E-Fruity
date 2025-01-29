@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import NavBar from '@/components/NavBar.vue'
 import Footer from '@/components/Footer.vue'
-import Product from '@/components/ProductCard.vue' // Importa el componente Product
+import { useFruits } from '@/stores/useFruitsStore.ts'
+import Product from '@/components/ProductCard.vue'
+
+const fruits = useFruits()
+
+const listFruits = fruits.data || []
 </script>
 
 <template>
@@ -28,19 +33,19 @@ import Product from '@/components/ProductCard.vue' // Importa el componente Prod
     </p>
   </section>
 
-  <!-- Productos -->
   <section class="py-10 px-6">
     <h2 class="text-3xl font-bold text-center mb-8">Nuestros Productos</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-      <!-- Renderizamos varios productos -->
-      <Product />
-      <Product />
-      <Product />
-      <!-- Agrega más <Product /> según sea necesario -->
+    <div class="flex flex-wrap gap-5 justify-center">
+      <Product
+        v-for="fruit in listFruits"
+        :key="fruit.id"
+        :productName="fruit.name"
+        :productImage="fruit.url_image"
+        :price="fruit.price"
+      />
     </div>
   </section>
 
-  <!-- Footer -->
   <Footer />
 </template>
 
