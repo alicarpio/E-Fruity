@@ -2,41 +2,36 @@
 import { ref } from 'vue';
 import NavBar from '@/components/NavBar.vue';
 import Footer from '@/components/Footer.vue';
-import PorductShop from '@/components/PorductShop.vue';
-import Congratulation from '@/components/Congratulation.vue'; // Importamos el componente Congratulation
+import ProductShop from '@/components/ProductShop.vue';
+import PaymentForm from '../components/PaymentForm.vue';
+import Congratulation from '@/components/Congratulation.vue'; // Componente de felicitación
 
-// Bandera reactiva para alternar entre el carrito y la pantalla de confirmación
-const showCongratulation = ref(false);
+// Bandera reactiva para controlar el flujo entre las pantallas
+const currentStep = ref<'cart' | 'payment' | 'congratulation'>('cart');
 
-// Función para mostrar el componente Congratulation
+// Función para pasar al formulario de pago
 const handleOrder = () => {
-  showCongratulation.value = true;
+  currentStep.value = 'payment';
+};
+
+// Función para manejar el éxito del pago
+const handlePaymentSuccess = () => {
+  currentStep.value = 'congratulation';
 };
 </script>
 
 <template>
-  <!-- NavBar -->
   <NavBar />
 
-  <!-- Contenido Principal -->
   <main class="bg-gray-50 min-h-screen">
-    <section v-if="!showCongratulation" class="max-w-6xl mx-auto py-10 px-6">
-      <!-- Título -->
+    <!-- Carrito -->
+    <section v-if="currentStep === 'cart'" class="max-w-6xl mx-auto py-10 px-6">
       <h1 class="text-2xl font-bold text-gray-800 mb-6">Carrito</h1>
 
       <!-- Lista de Productos -->
       <div class="space-y-4">
-        <PorductShop />
-        <PorductShop />
-      </div>
-
-      <!-- Añadir Cupón -->
-      <div class="mt-6 flex items-center justify-between border-b border-gray-200 pb-4">
-        <button class="flex items-center space-x-2 text-yellow-500 font-medium">
-          <span>➕</span>
-          <span>Add Coupon</span>
-        </button>
-        <button class="text-gray-500 text-lg">➤</button>
+        <ProductShop />
+        <ProductShop />
       </div>
 
       <!-- Detalles de Pago -->
@@ -71,13 +66,17 @@ const handleOrder = () => {
       </button>
     </section>
 
-    <!-- Pantalla de Felicitaciones -->
-    <section v-else>
+    <!-- Formulario de Pago -->
+    <section v-if="currentStep === 'payment'" class="max-w-6xl mx-auto py-10 px-6">
+      <PaymentForm @paymentSuccess="handlePaymentSuccess" />
+    </section>
+
+    <!-- Pantalla de Felicitación -->
+    <section v-if="currentStep === 'congratulation'" class="max-w-6xl mx-auto py-10 px-6">
       <Congratulation />
     </section>
   </main>
 
-  <!-- Footer -->
   <Footer />
 </template>
 
@@ -86,4 +85,3 @@ main {
   background-color: #f9fafb;
 }
 </style>
-

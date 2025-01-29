@@ -35,7 +35,7 @@ const listFruits = fruits.data || []
 
   <section class="py-10 px-6">
     <h2 class="text-3xl font-bold text-center mb-8">Nuestros Productos</h2>
-    <div class="flex flex-wrap gap-5 justify-center">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
       <Product
         v-for="fruit in listFruits"
         :key="fruit.id"

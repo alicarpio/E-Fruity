@@ -3,9 +3,12 @@ import { useRouter } from 'vue-router';
 import NavBar from '@/components/NavBar.vue';
 import Footer from '@/components/Footer.vue';
 import Product from '@/components/ProductCard.vue'; // Importa el componente Product
-
+import { useFruits } from '@/stores/useFruitsStore.ts'
 // Router para manejar las navegaciones
 const router = useRouter();
+
+const fruits = useFruits()
+const listFruits = fruits.data || []
 
 // Navegar a la página de ventas
 const viewSales = () => {
@@ -67,9 +70,13 @@ const createProduct = () => {
   <section class="py-10 px-6">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
       <!-- Renderizamos varios productos -->
-      <Product />
-      <Product />
-      <Product />
+      <Product
+        v-for="fruit in listFruits"
+        :key="fruit.id"
+        :productName="fruit.name"
+        :productImage="fruit.url_image"
+        :price="fruit.price"
+      />
       <!-- Agrega más <Product /> según sea necesario -->
     </div>
   </section>
