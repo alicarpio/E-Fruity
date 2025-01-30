@@ -32,14 +32,17 @@
                 'description' => 'required|string|max:150',
                 'price' => 'required|numeric',
                 'stock' => 'required|integer',
-                'category_id' => 'required|exists:categories,category_id',
                 'quantity' => 'required|integer',
+                'category' => 'required|string',
             ]);
 
-            Fruit::create($validated);
+            $FRUIT = Fruit::create($validated);
 
-            return response()->json(['message' => 'Fruit created successfully!'], 201);
-
+            return response()->json([
+                'success' => true,
+                'message' => 'Fruta creada exitosamente',
+                'data' => $FRUIT
+            ], 200);
         }
 
         /**
@@ -68,6 +71,7 @@
                 'price' => 'required|numeric',
                 'stock' => 'required|integer',
                 'quantity' => 'required|integer',
+                'category' => 'required|string',
             ]);
 
             $fruit = Fruit::findOrFail($id);

@@ -11,13 +11,9 @@ class Fruit extends Model
         'description',
         'price',
         'stock',
-        'quantity'
+        'quantity',
+        'category'
     ];
-
-    public function category()
-    {
-        return $this->belongsTo(Category::class, 'category_id');
-    }
 
     protected $hidden = ['created_at', 'updated_at'];
 

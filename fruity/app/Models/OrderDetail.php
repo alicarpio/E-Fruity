@@ -24,5 +24,8 @@ class OrderDetail extends Model
     {
         return $this->belongsTo(Fruit::class, 'fruit_id');
     }
+
+
+
     protected $hidden = ['created_at', 'updated_at'];
 }
