@@ -40,6 +40,7 @@ class OrderDetailController extends Controller
     {
         try {
             $validated = $request->validate([
+                'name' => 'required|string',
                 'quantity'=>'required|integer',
                 'unit_price'=>'required|double',
                 'subtotal'=>'required|double'
@@ -98,4 +99,6 @@ class OrderDetailController extends Controller
             ], 500);
         }
     }
+
+
 }

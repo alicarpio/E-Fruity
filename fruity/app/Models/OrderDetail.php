@@ -10,6 +10,7 @@ class OrderDetail extends Model
     public $incrementing = true;
     protected $keyType = 'int';
     protected $fillable = [
+        'name',
         'quantity',
         'unit_price',
         'subtotal'
@@ -19,13 +20,6 @@ class OrderDetail extends Model
     {
         return $this->belongsTo(Order::class, 'order_id');
     }
-
-    public function fruits()
-    {
-        return $this->belongsTo(Fruit::class, 'fruit_id');
-    }
-
-
 
     protected $hidden = ['created_at', 'updated_at'];
 }

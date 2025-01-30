@@ -25,7 +25,7 @@ Route::prefix('/v1')->group(function () {
 
     Route::put('/fruits/{id}/decrease',[FruitController::class,'decrease']);
 
-    Route::put('/fruits/resetCart',[FruitController::class,'resetCart']);
+    Route::get('/resetCart',[FruitController::class,'resetCart']);
 
     Route::delete('/fruits/{id}',[FruitController::class,'destroy']);
 

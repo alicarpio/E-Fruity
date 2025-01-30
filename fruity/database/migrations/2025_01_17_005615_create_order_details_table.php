@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('fruit_id');
             $table->foreign('order_id')->references('order_id')->on('orders')->onDelete('cascade');
-            $table->foreign('fruit_id')->references('id')->on('fruits')->onDelete('cascade');
+            $table->string('name');
             $table->integer('quantity');
             $table->double('unit_price');
             $table->double('subtotal');
