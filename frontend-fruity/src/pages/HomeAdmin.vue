@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router';
-import NavBar from '@/components/NavBar.vue';
-import Footer from '@/components/Footer.vue';
-import Product from '@/components/ProductCard.vue'; // Importa el componente Product
+import { useRouter } from 'vue-router'
+import NavBar from '@/components/NavBar.vue'
+import Footer from '@/components/Footer.vue'
+import Product from '@/components/ProductCard.vue' // Importa el componente Product
 import { useFruits } from '@/stores/useFruitsStore.ts'
 // Router para manejar las navegaciones
-const router = useRouter();
+const router = useRouter()
 
 const fruits = useFruits()
 const listFruits = fruits.data || []
 
 // Navegar a la página de ventas
 const viewSales = () => {
-  router.push('/sales'); // Asegúrate de que esta ruta exista en tu router
-};
+  router.push('/sales') // Asegúrate de que esta ruta exista en tu router
+}
 
 // Navegar a la página de creación de productos
 const createProduct = () => {
-  router.push('/create-product'); // Asegúrate de que esta ruta exista en tu router
-};
+  router.push('/create-product') // Asegúrate de que esta ruta exista en tu router
+}
 </script>
 
 <template>
@@ -47,7 +47,7 @@ const createProduct = () => {
 
   <!-- Barra de acciones -->
   <section class="py-6 px-6 flex justify-between items-center">
-    <h1 class="text-4xl font-bold text-gray-800">Stock</h1>
+    <h1 class="text-4xl font-bold text-gray-800 mt-5">Stock</h1>
     <div class="flex space-x-4">
       <!-- Botón Visualizar Ventas -->
       <button
@@ -68,7 +68,7 @@ const createProduct = () => {
 
   <!-- Productos -->
   <section class="py-10 px-6">
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="gap-x-5 justify-center flex md:gap-x-5 lg:gap-x-10 gap-y-9 flex-wrap">
       <!-- Renderizamos varios productos -->
       <Product
         v-for="fruit in listFruits"

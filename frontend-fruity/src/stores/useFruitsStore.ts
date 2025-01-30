@@ -1,5 +1,5 @@
 import type { QueryFunctionContext } from '@tanstack/vue-query'
-import { useQuery } from '@tanstack/vue-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query'
 import apiClient from '@/api/axios'
 
 export interface Fruit {
@@ -10,6 +10,15 @@ export interface Fruit {
   stock: number
   url_image: string
   quantity: number
+}
+
+export interface NewFruit {
+  name: string
+  description: string
+  price: number
+  stock: number
+  url_image: string
+  category: string
 }
 
 export async function getFruits({}: QueryFunctionContext): Promise<Fruit[]> {
@@ -33,6 +42,24 @@ async function getFruitById(id: number): Promise<Fruit | null> {
   }
 }
 
+async function createFruit(newFruit: NewFruit): Promise<Fruit | null> {
+  const response = await apiClient.post(
+    `/api/v1/fruits`,
+    {
+      nombre: newFruit.name,
+      description: newFruit.description,
+      price: newFruit.price,
+      stock: newFruit.stock,
+      url_image: newFruit.url_image,
+    },
+    {
+      headers: { 'Content-Type': 'application/json' },
+    },
+  )
+
+  return response.data
+}
+
 export const useFruit = (fruitId: number) => {
   // const queryClient = useQueryClient()
 
@@ -49,6 +76,8 @@ export const useFruit = (fruitId: number) => {
 }
 
 export const useFruits = () => {
+  const queryClient = useQueryClient()
+
   // Usa vue-query para realizar la consulta
   const { isLoading, isError, data, error } = useQuery<Fruit[]>({
     queryKey: ['fruits'], // Clave única para la consulta
@@ -56,14 +85,24 @@ export const useFruits = () => {
     initialData: [], // Datos iniciales, en este caso un array vacío
   })
 
+  const { mutateAsync: create } = useMutation({
+    mutationKey: ['animals'],
+    mutationFn: createFruit,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: ['animals'],
+      })
+    },
+  })
+
   return {
     isLoading, // Estado de carga
     isError, // Estado de error
     data, // Datos obtenidos (frutas)
     error, // Error si ocurre uno
+    create,
   }
 }
-
 
 export const addToCart = async (fruitId: number) => {
   try {
@@ -73,7 +112,6 @@ export const addToCart = async (fruitId: number) => {
   } catch {
     return false
   }
-
 }
 
 export const removeFromCart = async (fruitId: number) => {
@@ -84,7 +122,6 @@ export const removeFromCart = async (fruitId: number) => {
   } catch {
     return false
   }
-
 }
 
 export const resetCart = async () => {
@@ -95,5 +132,4 @@ export const resetCart = async () => {
   } catch {
     return false
   }
-
 }

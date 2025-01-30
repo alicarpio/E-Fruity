@@ -1,6 +1,13 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 import { addToCart } from '@/stores/useFruitsStore.ts'
 import SweetAlert from 'sweetalert2'
+
+const route = useRoute()
+const isAdminPage = computed(() => route.path === '/admin')
+
+const buttonText = computed(() => (isAdminPage.value ? 'Editar' : 'Agregar al carrito'))
 
 // Props
 const props = defineProps({
@@ -23,6 +30,26 @@ const props = defineProps({
   },
 })
 
+// const decreaseQuantity = () => {
+//   if (quantity.value > 1) {
+//     quantity.value -= 1
+//   }
+// }
+//
+// const increaseQuantity = () => {
+//   quantity.value += 1
+// }
+
+// const handleButtonClick = () => {
+//   if (isAdminPage.value) {
+//     console.log(`Editando producto:`)
+//
+//     // Aquí podrías abrir un modal de edición o redirigir a otra página
+//   } else {
+//     console.log(`Añadido al carrito: ${quantity.value}`)
+//   }
+// }
+
 const add = () => {
   addToCart(props.productID)
   SweetAlert.fire({
@@ -36,19 +63,22 @@ const add = () => {
 
 <template>
   <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-md p-4">
-    <!-- Ícono de Favorito
-    <div class="flex justify-end">
-      <button
-        class="text-gray-400 hover:text-red-500"
-        @click="toggleFavorite"
-        :aria-label="isFavorite ? 'Eliminar de favoritos' : 'Agregar a favoritos'"
-      >
-        <i :class="isFavorite ? 'fas fa-heart text-red-500' : 'far fa-heart'"></i>
-      </button>
-    </div>-->
+    <!--    <div class="flex justify-end">-->
+    <!--      <button-->
+    <!--        class="text-gray-400 hover:text-red-500"-->
+    <!--        @click="toggleFavorite"-->
+    <!--        :aria-label="isFavorite ? 'Eliminar de favoritos' : 'Agregar a favoritos'"-->
+    <!--      >-->
+    <!--        <i :class="isFavorite ? 'fas fa-heart text-red-500' : 'far fa-heart'"></i>-->
+    <!--      </button>-->
+    <!--    </div>-->
 
     <!-- Imagen del Producto -->
-    <img :src="productImage" :alt="productName" class="w-full h-48 object-cover rounded-lg" />
+    <img
+      :src="props.productImage"
+      :alt="props.productName"
+      class="w-full h-48 object-contain rounded-lg"
+    />
 
     <!-- Información del Producto -->
     <div class="mt-4 text-center">
@@ -68,7 +98,7 @@ const add = () => {
 
       <!-- Precio -->
       <div class="flex items-center justify-center mt-3">
-        <span class="text-2xl font-bold text-gray-800">{{ price }} $</span>
+        <span class="text-2xl font-bold text-gray-800">$ {{ props.price }} </span>
       </div>
 
       <!-- Opciones de Producto
@@ -90,7 +120,7 @@ const add = () => {
           <label for="quantity" class="block text-sm font-medium text-gray-700">Cantidad:</label>
           <div class="flex items-center mt-1">
             <button
-              class="px-2 py-1 border border-gray-300 rounded-l-lg bg-gray-100 hover:bg-gray-200"
+              class="px-4 py-2 border border-gray-300 rounded-l-lg bg-gray-100 hover:bg-gray-200 flex-1"
               @click="decreaseQuantity"
               :disabled="quantity <= 1"
             >
@@ -99,12 +129,12 @@ const add = () => {
             <input
               id="quantity"
               type="number"
-              class="w-12 text-center border-t border-b border-gray-300 focus:outline-none"
+              class="w-full text-center border-t border-b border-gray-300 focus:outline-none"
               v-model.number="quantity"
               min="1"
             />
             <button
-              class="px-2 py-1 border border-gray-300 rounded-r-lg bg-gray-100 hover:bg-gray-200"
+              class="px-4 py-2 border border-gray-300 rounded-r-lg bg-gray-100 hover:bg-gray-200 flex-1"
               @click="increaseQuantity"
             >
               +
@@ -118,7 +148,7 @@ const add = () => {
         class="mt-6 w-full bg-yellow-400 text-white font-semibold py-2 px-4 rounded-lg hover:bg-yellow-500"
         @click="add"
       >
-        Agregar al carrito
+        {{ buttonText }}
       </button>
     </div>
   </div>
