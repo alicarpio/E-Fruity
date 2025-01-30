@@ -33,6 +33,7 @@
                 'price' => 'required|numeric',
                 'stock' => 'required|integer',
                 'category_id' => 'required|exists:categories,category_id',
+                'quantity' => 'required|integer'
             ]);
 
             Fruit::create($validated);
@@ -66,6 +67,7 @@
                 'description' => 'required|string|max:150',
                 'price' => 'required|numeric',
                 'stock' => 'required|integer',
+                'quantity' => 'required|integer'
             ]);
 
             $fruit = Fruit::findOrFail($id);

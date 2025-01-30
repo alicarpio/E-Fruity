@@ -10,7 +10,8 @@ class Fruit extends Model
         'url_image',
         'description',
         'price',
-        'stock'
+        'stock',
+        'quantity'
     ];
 
     public function category()
