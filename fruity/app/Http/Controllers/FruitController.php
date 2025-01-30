@@ -33,7 +33,7 @@
                 'price' => 'required|numeric',
                 'stock' => 'required|integer',
                 'category_id' => 'required|exists:categories,category_id',
-                'quantity' => 'required|integer'
+                'quantity' => 'required|integer',
             ]);
 
             Fruit::create($validated);
@@ -67,7 +67,7 @@
                 'description' => 'required|string|max:150',
                 'price' => 'required|numeric',
                 'stock' => 'required|integer',
-                'quantity' => 'required|integer'
+                'quantity' => 'required|integer',
             ]);
 
             $fruit = Fruit::findOrFail($id);
@@ -78,6 +78,64 @@
                 'success' => true,
                 'message' => 'Fruta actualizada exitosamente',
                 'data' => $fruit
+            ], 200);
+        }
+
+
+        /**
+         * Add 1 to the quantity to the specified resource in cart.
+         */
+        public function add(string $id)
+        {
+            $fruit = Fruit::findOrFail($id);
+
+            $fruit->quantity += 1;
+
+            $fruit->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Cantidad de fruta actualizado exitosamente',
+                'data' => $fruit
+            ], 200);
+        }
+
+        /**
+         * Decrease 1 to quantity to the specified resource in cart.
+         */
+
+        public function decrease(string $id)
+        {
+            $fruit = Fruit::findOrFail($id);
+
+            $fruit->quantity -= 1;
+
+            $fruit->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Cantidad de fruta actualizado exitosamente',
+                'data' => $fruit
+            ], 200);
+        }
+
+        /**
+         * Reset the quantity of all fruits in cart.
+         */
+
+        public function resetCart()
+        {
+            $fruits = Fruit::all();
+
+            foreach ($fruits as $fruit) {
+                $fruit->quantity = 0;
+                $fruit->save();
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Carrito de frutas reiniciado exitosamente',
+                'data' => $fruits
             ], 200);
         }
 

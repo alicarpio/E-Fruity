@@ -21,6 +21,12 @@ Route::prefix('/v1')->group(function () {
 
     Route::put('/fruits/{id}',[FruitController::class,'update']);
 
+    Route::put('/fruits/{id}/add',[FruitController::class,'add']);
+
+    Route::put('/fruits/{id}/decrease',[FruitController::class,'decrease']);
+
+    Route::put('/fruits/resetCart',[FruitController::class,'resetCart']);
+
     Route::delete('/fruits/{id}',[FruitController::class,'destroy']);
 
     Route::get('/categories',[CategoryController::class,'index']);
