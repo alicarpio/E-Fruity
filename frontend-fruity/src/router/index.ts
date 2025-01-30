@@ -28,9 +28,8 @@ const router = createRouter({
       name: 'sales',
       component: () => import('../pages/ViewSales.vue'),
     },
-
     {
-      path: '/fruit-details',
+      path: '/fruits/:id',
       name: 'fruit-details',
       component: () => import('../pages/FruitDetails.vue'),
     },

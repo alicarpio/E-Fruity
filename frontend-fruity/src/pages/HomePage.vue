@@ -35,14 +35,10 @@ const listFruits = fruits.data || []
 
   <section class="py-10 px-6">
     <h2 class="text-3xl font-bold text-center mb-8">Nuestros Productos</h2>
-    <div class="flex flex-wrap justify-center gap-12">
-      <Product
-        v-for="fruit in listFruits"
-        :key="fruit.id"
-        :productName="fruit.name"
-        :productImage="fruit.url_image"
-        :price="fruit.price"
-      />
+    <div class="gap-x-5 justify-center flex md:gap-x-5 lg:gap-x-10 gap-y-9 flex-wrap">
+      <RouterLink v-for="fruit in listFruits" :key="fruit.id" :to="`/fruits/${fruit.id}`">
+        <Product :productName="fruit.name" :productImage="fruit.url_image" :price="fruit.price" />
+      </RouterLink>
     </div>
   </section>
 

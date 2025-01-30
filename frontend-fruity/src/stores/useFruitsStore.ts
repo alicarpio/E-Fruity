@@ -22,6 +22,31 @@ export async function getFruits({}: QueryFunctionContext): Promise<Fruit[]> {
   }
 }
 
+async function getFruitById(id: number): Promise<Fruit | null> {
+  try {
+    const response = await apiClient.get(`/api/v1/fruits/${id}`)
+    console.log('Response:', response.data.data) // Puedes revisar la respuesta aquí
+    return await response.data.data
+  } catch {
+    return null
+  }
+}
+
+export const useFruit = (fruitId: number) => {
+  // const queryClient = useQueryClient()
+
+  const { data, isFetching } = useQuery({
+    queryKey: ['animals', fruitId],
+    queryFn: async () => await getFruitById(fruitId),
+    initialData: null,
+  })
+
+  return {
+    data,
+    loading: isFetching,
+  }
+}
+
 export const useFruits = () => {
   // Usa vue-query para realizar la consulta
   const { isLoading, isError, data, error } = useQuery<Fruit[]>({

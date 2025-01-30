@@ -43,7 +43,7 @@ const addToCart = () => {
 </script>
 
 <template>
-  <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-md p-4 w-1/5">
+  <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-md p-4">
     <!--    <div class="flex justify-end">-->
     <!--      <button-->
     <!--        class="text-gray-400 hover:text-red-500"-->

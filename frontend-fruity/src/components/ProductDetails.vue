@@ -13,17 +13,28 @@ const decreaseQuantity = () => {
     quantity.value--
   }
 }
+
+defineProps({
+  productName: {
+    type: String,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+})
 </script>
 
 <template>
   <section class="flex flex-col w-5/6">
     <Breadcrumb />
-    <h1 class="text-2xl font-bold mt-12 mb-2">Mango Fresco Maduro</h1>
+    <h1 class="text-2xl font-bold mt-12 mb-2">{{ productName }}</h1>
     <p class="text-xs text-[#B9BBBF]">Mango maduro fresco y completo</p>
 
     <div class="border-t border-gray-300 mb-5 mt-1"></div>
 
-    <h3 class="text-xl text-[#3A4980] font-bold">$71.56</h3>
+    <h3 class="text-xl text-[#3A4980] font-bold">${{ price }}</h3>
 
     <div class="border-t border-gray-300 my-6"></div>
 
