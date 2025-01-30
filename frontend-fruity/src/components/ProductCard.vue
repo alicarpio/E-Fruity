@@ -43,20 +43,19 @@ const addToCart = () => {
 </script>
 
 <template>
-  <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-md p-4">
-    <!-- Ícono de Favorito -->
-    <div class="flex justify-end">
-      <button
-        class="text-gray-400 hover:text-red-500"
-        @click="toggleFavorite"
-        :aria-label="isFavorite ? 'Eliminar de favoritos' : 'Agregar a favoritos'"
-      >
-        <i :class="isFavorite ? 'fas fa-heart text-red-500' : 'far fa-heart'"></i>
-      </button>
-    </div>
+  <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-md p-4 w-1/5">
+    <!--    <div class="flex justify-end">-->
+    <!--      <button-->
+    <!--        class="text-gray-400 hover:text-red-500"-->
+    <!--        @click="toggleFavorite"-->
+    <!--        :aria-label="isFavorite ? 'Eliminar de favoritos' : 'Agregar a favoritos'"-->
+    <!--      >-->
+    <!--        <i :class="isFavorite ? 'fas fa-heart text-red-500' : 'far fa-heart'"></i>-->
+    <!--      </button>-->
+    <!--    </div>-->
 
     <!-- Imagen del Producto -->
-    <img :src="productImage" :alt="productName" class="w-full h-48 object-cover rounded-lg" />
+    <img :src="productImage" :alt="productName" class="w-full h-48 object-contain rounded-lg" />
 
     <!-- Información del Producto -->
     <div class="mt-4 text-center">
@@ -76,29 +75,21 @@ const addToCart = () => {
 
       <!-- Precio -->
       <div class="flex items-center justify-center mt-3">
-        <span class="text-2xl font-bold text-gray-800">{{ price }} $</span>
+        <span class="text-2xl font-bold text-gray-800">${{ price }} </span>
       </div>
 
       <!-- Opciones de Producto -->
-      <div class="mt-4 grid grid-cols-2 gap-4">
-        <!-- Selector de Talla -->
-        <div>
-          <label for="size" class="block text-sm font-medium text-gray-700">Tamaño:</label>
-          <select
-            id="size"
-            class="w-full mt-1 border-gray-300 rounded-lg focus:ring-yellow-400 focus:border-yellow-400"
-            v-model="selectedSize"
-          >
-            <option v-for="size in sizes" :key="size" :value="size">{{ size }}</option>
-          </select>
-        </div>
+      <div class="flex flex-col justify-center w-full mt-5">
+        <!-- Selector de Talla (si aplica) -->
 
         <!-- Cantidad -->
-        <div>
-          <label for="quantity" class="block text-sm font-medium text-gray-700">Cantidad:</label>
-          <div class="flex items-center mt-1">
+        <div class="w-full">
+          <label for="quantity" class="block text-sm font-medium text-gray-700 flex items-start"
+            >Cantidad:</label
+          >
+          <div class="flex items-center mt-1 w-full">
             <button
-              class="px-2 py-1 border border-gray-300 rounded-l-lg bg-gray-100 hover:bg-gray-200"
+              class="px-4 py-2 border border-gray-300 rounded-l-lg bg-gray-100 hover:bg-gray-200 flex-1"
               @click="decreaseQuantity"
               :disabled="quantity <= 1"
             >
@@ -107,12 +98,12 @@ const addToCart = () => {
             <input
               id="quantity"
               type="number"
-              class="w-12 text-center border-t border-b border-gray-300 focus:outline-none"
+              class="w-full text-center border-t border-b border-gray-300 focus:outline-none"
               v-model.number="quantity"
               min="1"
             />
             <button
-              class="px-2 py-1 border border-gray-300 rounded-r-lg bg-gray-100 hover:bg-gray-200"
+              class="px-4 py-2 border border-gray-300 rounded-r-lg bg-gray-100 hover:bg-gray-200 flex-1"
               @click="increaseQuantity"
             >
               +
