@@ -6,11 +6,9 @@ import Product from '@/components/ProductCard.vue'
 
 const fruits = useFruits()
 
-
 // lista global de frutas
 const listFruits = fruits.data || []
 console.log('ADIOSSSSS', listFruits)
-
 </script>
 
 <template>
@@ -39,7 +37,7 @@ console.log('ADIOSSSSS', listFruits)
 
   <section class="py-10 px-6">
     <h2 class="text-3xl font-bold text-center mb-8">Nuestros Productos</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="flex flex-wrap space-x-10 space-y-10 justify-center">
       <Product
         v-for="fruit in listFruits"
         :key="fruit.id"

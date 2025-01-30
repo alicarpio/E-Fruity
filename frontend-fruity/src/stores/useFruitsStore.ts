@@ -17,7 +17,8 @@ export interface NewFruit {
   description: string
   price: number
   stock: number
-  url_image: string
+  url_image: string | null
+  quantity: number
   category: string
 }
 
@@ -46,17 +47,19 @@ async function createFruit(newFruit: NewFruit): Promise<Fruit | null> {
   const response = await apiClient.post(
     `/api/v1/fruits`,
     {
-      nombre: newFruit.name,
+      name: newFruit.name,
+      url_image: newFruit.url_image,
       description: newFruit.description,
       price: newFruit.price,
       stock: newFruit.stock,
-      url_image: newFruit.url_image,
+      quantity: newFruit.quantity,
+      category: newFruit.category,
     },
     {
       headers: { 'Content-Type': 'application/json' },
     },
   )
-
+  console.log('Response:', response.data.data)
   return response.data
 }
 
@@ -96,10 +99,10 @@ export const useFruits = () => {
   })
 
   return {
-    isLoading, // Estado de carga
-    isError, // Estado de error
-    data, // Datos obtenidos (frutas)
-    error, // Error si ocurre uno
+    isLoading,
+    isError,
+    data,
+    error,
     create,
   }
 }

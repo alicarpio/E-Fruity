@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import NavBar from '@/components/NavBar.vue'
 import Footer from '@/components/Footer.vue'
+import { useFruits } from '@/stores/useFruitsStore.ts'
 
 // Datos del formulario
 const productName = ref('')
@@ -10,6 +11,8 @@ const productCategory = ref('')
 const productPrice = ref(0)
 const productStock = ref(0)
 const productImage = ref<File | null>(null)
+
+const { create } = useFruits()
 
 // Manejar la subida de imágenes
 const handleImageUpload = (event: Event) => {
@@ -20,16 +23,25 @@ const handleImageUpload = (event: Event) => {
 }
 
 // Función para enviar los datos del formulario
-const handleSubmit = () => {
-  console.log('Datos del producto:', {
+const handleSubmit = async () => {
+  const fruitData = {
     name: productName.value,
+    url_image: '/src/assets/frutas.jpg',
     description: productDescription.value,
-    category: productCategory.value,
     price: productPrice.value,
     stock: productStock.value,
-    image: productImage.value,
-  })
-  alert('Producto creado exitosamente 🎉')
+    quantity: 0,
+    category: productCategory.value,
+  }
+  console.log('fruitData', fruitData)
+  console.log(fruitData)
+  try {
+    await create(fruitData) // Llamamos a la mutación para crear la fruta
+    alert('Fruta creada exitosamente 🎉')
+  } catch (err) {
+    console.error('Error al crear la fruta:', err)
+    alert('Hubo un error al crear la fruta.')
+  }
 }
 </script>
 
@@ -52,7 +64,7 @@ const handleSubmit = () => {
             class="flex flex-col items-center justify-center cursor-pointer"
           >
             <img
-              src="/src/assets/cherry.png"
+              src="/src/assets/manzana.png"
               alt="Sube la imagen del producto"
               class="w-48 h-48 object-cover mb-4"
             />
@@ -104,9 +116,9 @@ const handleSubmit = () => {
               class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm p-2 focus:ring-yellow-400 focus:border-yellow-400"
             >
               <option disabled value="">Seleccione la categoría</option>
-              <option>Frutas</option>
-              <option>Verduras</option>
-              <option>Orgánicos</option>
+              <option>Ácida</option>
+              <option>Dulce</option>
+              <option>Tropical</option>
             </select>
           </div>
 

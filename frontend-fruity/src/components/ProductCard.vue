@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { addToCart } from '@/stores/useFruitsStore.ts'
 import SweetAlert from 'sweetalert2'
@@ -9,7 +9,8 @@ const isAdminPage = computed(() => route.path === '/admin')
 
 const buttonText = computed(() => (isAdminPage.value ? 'Editar' : 'Agregar al carrito'))
 
-// Props
+const quantity = ref(1)
+
 const props = defineProps({
   productID: {
     type: Number,
@@ -30,21 +31,19 @@ const props = defineProps({
   },
 })
 
-// const decreaseQuantity = () => {
-//   if (quantity.value > 1) {
-//     quantity.value -= 1
-//   }
-// }
-//
-// const increaseQuantity = () => {
-//   quantity.value += 1
-// }
+const decreaseQuantity = () => {
+  if (quantity.value > 1) {
+    quantity.value -= 1
+  }
+}
+
+const increaseQuantity = () => {
+  quantity.value += 1
+}
 
 // const handleButtonClick = () => {
 //   if (isAdminPage.value) {
 //     console.log(`Editando producto:`)
-//
-//     // Aquí podrías abrir un modal de edición o redirigir a otra página
 //   } else {
 //     console.log(`Añadido al carrito: ${quantity.value}`)
 //   }
@@ -73,11 +72,14 @@ const add = () => {
     <!--      </button>-->
     <!--    </div>-->
 
+    <div class="flex justify-end mb-5 p-2">
+      <i v-if="isAdminPage" class="fa-solid fa-trash text-red-500"></i>
+    </div>
     <!-- Imagen del Producto -->
     <img
       :src="props.productImage"
       :alt="props.productName"
-      class="w-full h-48 object-contain rounded-lg"
+      class="w-90 h-48 object-contain rounded-lg"
     />
 
     <!-- Información del Producto -->
@@ -113,37 +115,34 @@ const add = () => {
           >
             <option v-for="size in sizes" :key="size" :value="size">{{ size }}</option>
           </select>
-        </div>
+        </div>-->
 
-        Cantidad
-        <div>
-          <label for="quantity" class="block text-sm font-medium text-gray-700">Cantidad:</label>
-          <div class="flex items-center mt-1">
-            <button
-              class="px-4 py-2 border border-gray-300 rounded-l-lg bg-gray-100 hover:bg-gray-200 flex-1"
-              @click="decreaseQuantity"
-              :disabled="quantity <= 1"
-            >
-              -
-            </button>
-            <input
-              id="quantity"
-              type="number"
-              class="w-full text-center border-t border-b border-gray-300 focus:outline-none"
-              v-model.number="quantity"
-              min="1"
-            />
-            <button
-              class="px-4 py-2 border border-gray-300 rounded-r-lg bg-gray-100 hover:bg-gray-200 flex-1"
-              @click="increaseQuantity"
-            >
-              +
-            </button>
-          </div>
+      <div>
+        <label for="quantity" class="block text-sm font-medium text-gray-700 mt-5">Cantidad:</label>
+        <div class="flex items-center mt-1">
+          <button
+            class="px-4 py-2 border border-gray-300 rounded-l-lg bg-gray-100 hover:bg-gray-200 flex-1"
+            @click="decreaseQuantity"
+            :disabled="quantity <= 1"
+          >
+            -
+          </button>
+          <input
+            id="quantity"
+            type="number"
+            class="w-full text-center border-t border-b border-gray-300 focus:outline-none"
+            v-model.number="quantity"
+            min="1"
+          />
+          <button
+            class="px-4 py-2 border border-gray-300 rounded-r-lg bg-gray-100 hover:bg-gray-200 flex-1"
+            @click="increaseQuantity"
+          >
+            +
+          </button>
         </div>
-      </div>-->
+      </div>
 
-      <!-- Botón Agregar al Carro -->
       <button
         class="mt-6 w-full bg-yellow-400 text-white font-semibold py-2 px-4 rounded-lg hover:bg-yellow-500"
         @click="add"
