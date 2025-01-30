@@ -1,23 +1,31 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import NavBar from '@/components/NavBar.vue';
-import Footer from '@/components/Footer.vue';
-import ProductShop from '@/components/ProductShop.vue';
-import PaymentForm from '../components/PaymentForm.vue';
-import Congratulation from '@/components/Congratulation.vue'; // Componente de felicitación
+import { ref } from 'vue'
+import NavBar from '@/components/NavBar.vue'
+import Footer from '@/components/Footer.vue'
+import Product from '@/components/ProductShop.vue'
+import PaymentForm from '../components/PaymentForm.vue'
+import Congratulation from '@/components/Congratulation.vue' // Componente de felicitación
+
+import { useFruits } from '@/stores/useFruitsStore.ts'
+
+const fruits = useFruits()
+
+// lista global de frutas
+const listFruits = fruits.data || []
+console.log('HOLAAAAAAAAAAAAAAAAAAA', listFruits)
 
 // Bandera reactiva para controlar el flujo entre las pantallas
-const currentStep = ref<'cart' | 'payment' | 'congratulation'>('cart');
+const currentStep = ref<'cart' | 'payment' | 'congratulation'>('cart')
 
 // Función para pasar al formulario de pago
 const handleOrder = () => {
-  currentStep.value = 'payment';
-};
+  currentStep.value = 'payment'
+}
 
 // Función para manejar el éxito del pago
 const handlePaymentSuccess = () => {
-  currentStep.value = 'congratulation';
-};
+  currentStep.value = 'congratulation'
+}
 </script>
 
 <template>
@@ -30,8 +38,15 @@ const handlePaymentSuccess = () => {
 
       <!-- Lista de Productos -->
       <div class="space-y-4">
-        <ProductShop />
-        <ProductShop />
+        <Product
+          v-for="fruit in listFruits"
+          :key="fruit.id"
+          :productID="fruit.id"
+          :productName="fruit.name"
+          :productImage="fruit.url_image"
+          :price="fruit.price"
+          :quantity="fruit.quantity"
+        />
       </div>
 
       <!-- Detalles de Pago -->

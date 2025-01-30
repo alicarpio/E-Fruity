@@ -1,3 +1,27 @@
+<script lang="ts">
+import { defineComponent } from 'vue';
+import { useRouter } from 'vue-router';
+import {resetCart } from '@/stores/useFruitsStore.ts'
+
+export default defineComponent({
+  name: 'CongratulationComponent',
+  setup() {
+    const router = useRouter();
+
+    // Redirige al usuario a la tienda (ruta raíz o personalizada)
+    const goToShop = () => {
+      resetCart();
+      router.push('/');
+    };
+
+    return {
+      goToShop,
+    };
+  },
+});
+</script>
+
+
 <template>
   <div class="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-6">
     <!-- Imagen -->
@@ -23,26 +47,7 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-import { useRouter } from 'vue-router';
 
-export default defineComponent({
-  name: 'CongratulationComponent',
-  setup() {
-    const router = useRouter();
-
-    // Redirige al usuario a la tienda (ruta raíz o personalizada)
-    const goToShop = () => {
-      router.push('/');
-    };
-
-    return {
-      goToShop,
-    };
-  },
-});
-</script>
 
 <style scoped>
 /* Agrega estilos personalizados si es necesario */

@@ -6,7 +6,11 @@ import Product from '@/components/ProductCard.vue'
 
 const fruits = useFruits()
 
+
+// lista global de frutas
 const listFruits = fruits.data || []
+console.log('ADIOSSSSS', listFruits)
+
 </script>
 
 <template>
@@ -35,10 +39,15 @@ const listFruits = fruits.data || []
 
   <section class="py-10 px-6">
     <h2 class="text-3xl font-bold text-center mb-8">Nuestros Productos</h2>
-    <div class="gap-x-5 justify-center flex md:gap-x-5 lg:gap-x-10 gap-y-9 flex-wrap">
-      <RouterLink v-for="fruit in listFruits" :key="fruit.id" :to="`/fruits/${fruit.id}`">
-        <Product :productName="fruit.name" :productImage="fruit.url_image" :price="fruit.price" />
-      </RouterLink>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <Product
+        v-for="fruit in listFruits"
+        :key="fruit.id"
+        :productID="fruit.id"
+        :productName="fruit.name"
+        :productImage="fruit.url_image"
+        :price="fruit.price"
+      />
     </div>
   </section>
 

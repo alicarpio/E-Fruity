@@ -9,6 +9,7 @@ export interface Fruit {
   price: number
   stock: number
   url_image: string
+  quantity: number
 }
 
 export async function getFruits({}: QueryFunctionContext): Promise<Fruit[]> {
@@ -61,4 +62,38 @@ export const useFruits = () => {
     data, // Datos obtenidos (frutas)
     error, // Error si ocurre uno
   }
+}
+
+
+export const addToCart = async (fruitId: number) => {
+  try {
+    const response = await apiClient.put(`/api/v1/fruits/${fruitId}/add`)
+    console.log('Response:', response.data.data) // Puedes revisar la respuesta aquí
+    return true
+  } catch {
+    return false
+  }
+
+}
+
+export const removeFromCart = async (fruitId: number) => {
+  try {
+    const response = await apiClient.put(`/api/v1/fruits/${fruitId}/decrease`)
+    console.log('Response:', response.data.data) // Puedes revisar la respuesta aquí
+    return true
+  } catch {
+    return false
+  }
+
+}
+
+export const resetCart = async () => {
+  try {
+    const response = await apiClient.put(`/api/v1/fruits/resetCart`)
+    console.log('Response:', response.data.data) // Puedes revisar la respuesta aquí
+    return true
+  } catch {
+    return false
+  }
+
 }

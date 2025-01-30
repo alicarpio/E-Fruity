@@ -1,3 +1,23 @@
+<script lang="ts">
+import { defineComponent, ref } from 'vue';
+
+export default defineComponent({
+  name: 'NavBar',
+  setup() {
+    const searchQuery = ref('')
+
+    const onSearch = () => {
+      console.log('Search query:', searchQuery.value)
+    }
+
+    return {
+      searchQuery,
+      onSearch,
+    }
+  },
+})
+</script>
+
 <template>
   <nav class="bg-green-900 text-white flex items-center justify-between px-6 py-3">
     <!-- Logo -->
@@ -37,29 +57,10 @@
       <!--        <i class="fas fa-heart"></i>-->
       <!--      </button>-->
       <!-- Carrito -->
-      <router-link to="/shopping-cart" title="Carrito" class="text-white hover:text-yellow-400">
-        <i class="fas fa-shopping-cart"></i>
-      </router-link>
+      <!-- Enlace al carrito -->
+    <router-link to="/shopping-cart" title="Carrito" class="text-white hover:text-yellow-400">
+      <i class="fas fa-shopping-cart text-xl"></i>
+    </router-link>
     </div>
   </nav>
 </template>
-
-<script lang="ts">
-import { defineComponent, ref } from 'vue'
-
-export default defineComponent({
-  name: 'NavBar',
-  setup() {
-    const searchQuery = ref('')
-
-    const onSearch = () => {
-      console.log('Search query:', searchQuery.value)
-    }
-
-    return {
-      searchQuery,
-      onSearch,
-    }
-  },
-})
-</script>
