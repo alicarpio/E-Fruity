@@ -1,20 +1,14 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import Breadcrumb from '@/components/Breadcrumb.vue'
+import { addToCart } from '@/stores/useFruitsStore';
+import sweetAlert from 'sweetalert2'
 
-const quantity = ref(1)
-
-const increaseQuantity = () => {
-  quantity.value++
-}
-
-const decreaseQuantity = () => {
-  if (quantity.value > 1) {
-    quantity.value--
-  }
-}
-
-defineProps({
+const props = defineProps({
+  productID: {
+    type: Number,
+    required: true,
+  },
   productName: {
     type: String,
     required: true,
@@ -27,7 +21,18 @@ defineProps({
     type: String,
     required: true,
   },
+
 })
+
+const add = () => {
+  addToCart(props.productID)
+  sweetAlert.fire({
+    icon: 'success',
+    title: 'Producto añadido al carrito',
+    showConfirmButton: false,
+    timer: 1500
+  })
+}
 </script>
 
 <template>
@@ -43,24 +48,9 @@ defineProps({
     <div class="border-t border-gray-300 my-6"></div>
 
     <div class="flex items-center space-x-10 w-full">
-      <div class="flex items-center border border-gray-300 rounded-3xl bg-[#F3F3F3]">
-        <button
-          class="px-4 py-2 font-bold text-[#A3A3A3] hover:text-gray-500"
-          @click="decreaseQuantity"
-        >
-          -
-        </button>
-        <span class="px-4 py-2 font-bold text-[#3A4980]"> {{ quantity }}KG </span>
-        <button
-          class="px-4 py-2 hover:text-blue-600 font-bold text-[#3A4980]"
-          @click="increaseQuantity"
-        >
-          +
-        </button>
-      </div>
       <button
         class="px-20 py-3 text-white font-sm font-bold rounded-3xl shadow-md hover:bg-3A4980 bg-[#3A4980]"
-        @click="addToCart"
+        @click.stop="add"
       >
         <i class="fa fa-shopping-bag mr-2" aria-hidden="true"></i>
         Añadir al carrito

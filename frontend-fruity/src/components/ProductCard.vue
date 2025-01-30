@@ -10,7 +10,6 @@ const isAdminPage = computed(() => route.path === '/admin')
 
 const buttonText = computed(() => (isAdminPage.value ? 'Editar' : 'Agregar al carrito'))
 
-const quantity = ref(1)
 
 const props = defineProps({
   productID: {
@@ -60,16 +59,6 @@ const deleteProduct = async (id: number) => {
     }
   }
 }
-const decreaseQuantity = () => {
-  if (quantity.value > 1) {
-    quantity.value -= 1
-  }
-}
-
-const increaseQuantity = () => {
-  quantity.value += 1
-}
-
 const handleButtonClick = () => {
   if (isAdminPage.value) {
     console.log(`Editando producto:`)
@@ -95,15 +84,6 @@ const add = () => {
     class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-md p-4 cursor-pointer"
     @click="$emit('click', $event)"
   >
-    <!--    <div class="flex justify-end">-->
-    <!--      <button-->
-    <!--        class="text-gray-400 hover:text-red-500"-->
-    <!--        @click="toggleFavorite"-->
-    <!--        :aria-label="isFavorite ? 'Eliminar de favoritos' : 'Agregar a favoritos'"-->
-    <!--      >-->
-    <!--        <i :class="isFavorite ? 'fas fa-heart text-red-500' : 'far fa-heart'"></i>-->
-    <!--      </button>-->
-    <!--    </div>-->
 
     <div class="flex justify-end mb-5 p-2">
       <i
@@ -140,46 +120,6 @@ const add = () => {
       <!-- Precio -->
       <div class="flex items-center justify-center mt-3">
         <span class="text-2xl font-bold text-gray-800">$ {{ props.price }} </span>
-      </div>
-
-      <!-- Opciones de Producto
-      <div class="mt-4 grid grid-cols-2 gap-4">
-        Selector de Talla
-        <div>
-          <label for="size" class="block text-sm font-medium text-gray-700">Tamaño:</label>
-          <select
-            id="size"
-            class="w-full mt-1 border-gray-300 rounded-lg focus:ring-yellow-400 focus:border-yellow-400"
-            v-model="selectedSize"
-          >
-            <option v-for="size in sizes" :key="size" :value="size">{{ size }}</option>
-          </select>
-        </div>-->
-
-      <div v-if="!isAdminPage">
-        <label for="quantity" class="block text-sm font-medium text-gray-700 mt-5">Cantidad:</label>
-        <div class="flex items-center mt-1">
-          <button
-            class="px-4 py-2 border border-gray-300 rounded-l-lg bg-gray-100 hover:bg-gray-200 flex-1"
-            @click="decreaseQuantity"
-            :disabled="quantity <= 1"
-          >
-            -
-          </button>
-          <input
-            id="quantity"
-            type="number"
-            class="w-full text-center border-t border-b border-gray-300 focus:outline-none"
-            v-model.number="quantity"
-            min="1"
-          />
-          <button
-            class="px-4 py-2 border border-gray-300 rounded-r-lg bg-gray-100 hover:bg-gray-200 flex-1"
-            @click="increaseQuantity"
-          >
-            +
-          </button>
-        </div>
       </div>
 
       <button

@@ -158,7 +158,7 @@ export const removeFromCart = async (fruitId: number) => {
 
 export const resetCart = async () => {
   try {
-    const response = await apiClient.put(`/api/v1/fruits/resetCart`)
+    const response = await apiClient.get(`/api/v1/resetCart`)
     console.log('Response:', response.data.data) // Puedes revisar la respuesta aquí
     return true
   } catch {

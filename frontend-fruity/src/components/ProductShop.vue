@@ -25,10 +25,10 @@ const props = defineProps({
 })
 
 
+
 const add = () => {
   addToCart(props.productID)
 }
-
 
 const remove = () => {
   removeFromCart(props.productID)
@@ -36,10 +36,11 @@ const remove = () => {
 
 
 
+
 </script>
 
 <template>
-  <div class="flex items-center justify-between border-b border-gray-200 py-4">
+  <div v-if="props.quantity > 0" class="flex items-center justify-between border-b border-gray-200 py-4">
     <!-- Imagen del Producto -->
     <div class="flex items-center space-x-4">
       <!--<img

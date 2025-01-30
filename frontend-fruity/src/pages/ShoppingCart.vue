@@ -5,20 +5,21 @@ import Footer from '@/components/Footer.vue'
 import Product from '@/components/ProductShop.vue'
 import PaymentForm from '../components/PaymentForm.vue'
 import Congratulation from '@/components/Congratulation.vue' // Componente de felicitación
+import {store } from '@/stores/useOrderStore.ts'
 
 import { useFruits } from '@/stores/useFruitsStore.ts'
 
 const fruits = useFruits()
 
 // lista global de frutas
-const listFruits = fruits.data || []
-console.log('HOLAAAAAAAAAAAAAAAAAAA', listFruits)
+let listFruits= fruits.data || []
 
 // Bandera reactiva para controlar el flujo entre las pantallas
 const currentStep = ref<'cart' | 'payment' | 'congratulation'>('cart')
 
 // Función para pasar al formulario de pago
 const handleOrder = () => {
+  handleSubmit()
   currentStep.value = 'payment'
 }
 
@@ -26,7 +27,37 @@ const handleOrder = () => {
 const handlePaymentSuccess = () => {
   currentStep.value = 'congratulation'
 }
+
+const handleUpdateProducts = () => {
+  listFruits = useFruits().data
+}
+
+const calculateSubtotal = () => {
+  let total = 0
+  for (const fruit of listFruits.value) {
+    total += fruit.price * fruit.quantity
+  }
+  return total
+}
+
+// Función para enviar los datos del formulario
+const handleSubmit = async () => {
+  const orderData = {
+    order_status: 'pending',
+    order_total: calculateSubtotal() + 50,
+  }
+  console.log('orderData', orderData)
+  try {
+    await createOrder(orderData) // Llamamos a la función para crear la orden
+    alert('Orden creada exitosamente 🎉')
+  } catch (err) {
+    console.error('Error al crear la orden:', err)
+    alert('Hubo un error al crear la orden.')
+  }
+}
 </script>
+
+
 
 <template>
   <NavBar />
@@ -46,6 +77,7 @@ const handlePaymentSuccess = () => {
           :productImage="fruit.url_image"
           :price="fruit.price"
           :quantity="fruit.quantity"
+          @updateProducts="handleUpdateProducts"
         />
       </div>
 
@@ -55,7 +87,7 @@ const handlePaymentSuccess = () => {
         <ul class="text-gray-700 space-y-2">
           <li class="flex justify-between">
             <span>Total del Pedido</span>
-            <span class="font-bold">$774</span>
+            <span class="font-bold">${{ calculateSubtotal() }}</span>
           </li>
           <li class="flex justify-between">
             <span>Empaque</span>
@@ -68,7 +100,8 @@ const handlePaymentSuccess = () => {
         </ul>
         <div class="flex justify-between items-center border-t border-gray-200 mt-4 pt-4">
           <span class="text-xl font-bold">TOTAL</span>
-          <span class="text-xl font-bold text-gray-800">$724.00</span>
+          <span class="text-xl font-bold text-gray-800">$ {{ calculateSubtotal() + 50 }}</span>
+
         </div>
       </div>
 

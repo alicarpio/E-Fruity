@@ -21,6 +21,7 @@ const fruit = useFruit(id)
         :productImage="fruit.data.value?.url_image"
       />
       <ProductDetails
+        :productID="fruit.data.value.id"
         :product-name="fruit.data.value.name"
         :price="fruit.data.value.price"
         :category="fruit.data.value.category"

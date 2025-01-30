@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, defineEmits } from 'vue'
+import sweetAlert from 'sweetalert2'
 
 // Emitimos un evento cuando el pago sea exitoso
 const emit = defineEmits(['paymentSuccess'])
@@ -14,17 +15,17 @@ const cvv = ref('')
 const handlePayment = () => {
   // Validación básica
   if (!cardNumber.value || !cardHolder.value || !expiryDate.value || !cvv.value) {
-    alert('Por favor, complete todos los campos.')
+    sweetAlert.fire('Error', 'Por favor, completa todos los campos.', 'error')
     return
   }
 
   if (!/^\d{16}$/.test(cardNumber.value)) {
-    alert('El número de tarjeta debe tener 16 dígitos.')
+    sweetAlert.fire('Error', 'El número de tarjeta debe tener 16 dígitos.', 'error')
     return
   }
 
   if (!/^\d{3,4}$/.test(cvv.value)) {
-    alert('El CVV debe tener 3 o 4 dígitos.')
+    sweetAlert.fire('Error', 'El CVV debe tener 3 o 4 dígitos.', 'error')
     return
   }
 
