@@ -1,4 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+defineProps({
+  productName: {
+    type: String,
+    required: true,
+  },
+})
+</script>
 
 <template>
   <nav
@@ -43,7 +50,7 @@
             />
           </svg>
           <a href="#" class="ms-1 text-sm font-medium text-[#A3A9C2] hover:text-blue-600 md:ms-2"
-            >Templates</a
+            >Frutas</a
           >
         </div>
       </li>
@@ -64,7 +71,7 @@
               d="m1 9 4-4-4-4"
             />
           </svg>
-          <span class="ms-1 text-sm font-medium text-[#A3A9C2] md:ms-2">Flowbite</span>
+          <span class="ms-1 text-sm font-medium text-[#A3A9C2] md:ms-2">{{ productName }}</span>
         </div>
       </li>
     </ol>

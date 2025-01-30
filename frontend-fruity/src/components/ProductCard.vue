@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { useRoute } from 'vue-router'
-import { addToCart } from '@/stores/useFruitsStore.ts'
+import { useRoute, useRouter } from 'vue-router'
+import { addToCart, useFruit } from '@/stores/useFruitsStore.ts'
 import SweetAlert from 'sweetalert2'
 
 const route = useRoute()
+const router = useRouter() // Obtén el router
 const isAdminPage = computed(() => route.path === '/admin')
 
 const buttonText = computed(() => (isAdminPage.value ? 'Editar' : 'Agregar al carrito'))
@@ -29,8 +30,36 @@ const props = defineProps({
     type: Number,
     required: true,
   },
+  category: {
+    type: String,
+    required: false,
+  },
 })
 
+console.log('id', props.productID)
+const { remove } = useFruit(props.productID)
+const deleteProduct = async (id: number) => {
+  const result = await SweetAlert.fire({
+    title: '¿Estás seguro?',
+    text: 'Esta acción no se puede deshacer',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Sí, eliminar',
+    cancelButtonText: 'Cancelar',
+  })
+
+  if (result.isConfirmed && id) {
+    try {
+      await remove()
+      SweetAlert.fire('Eliminado', 'El producto ha sido eliminado.', 'success')
+    } catch (error) {
+      console.error('Error al eliminar el producto:', error)
+      SweetAlert.fire('Error', 'No se pudo eliminar el producto.', 'error')
+    }
+  }
+}
 const decreaseQuantity = () => {
   if (quantity.value > 1) {
     quantity.value -= 1
@@ -41,16 +70,17 @@ const increaseQuantity = () => {
   quantity.value += 1
 }
 
-// const handleButtonClick = () => {
-//   if (isAdminPage.value) {
-//     console.log(`Editando producto:`)
-//   } else {
-//     console.log(`Añadido al carrito: ${quantity.value}`)
-//   }
-// }
+const handleButtonClick = () => {
+  if (isAdminPage.value) {
+    console.log(`Editando producto:`)
+    router.push(`admin/fruits/edit/${props.productID}`) // Ejemplo: redirige a una página de edición de producto
+  } else {
+    add()
+  }
+}
 
 const add = () => {
-  addToCart(props.productID)
+  addToCart(props.productID) // Agrega el producto al carrito
   SweetAlert.fire({
     icon: 'success',
     title: 'Producto agregado al carrito',
@@ -61,7 +91,10 @@ const add = () => {
 </script>
 
 <template>
-  <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-md p-4">
+  <div
+    class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-md p-4 cursor-pointer"
+    @click="$emit('click', $event)"
+  >
     <!--    <div class="flex justify-end">-->
     <!--      <button-->
     <!--        class="text-gray-400 hover:text-red-500"-->
@@ -73,7 +106,11 @@ const add = () => {
     <!--    </div>-->
 
     <div class="flex justify-end mb-5 p-2">
-      <i v-if="isAdminPage" class="fa-solid fa-trash text-red-500"></i>
+      <i
+        v-if="isAdminPage"
+        class="fa-solid fa-trash text-red-500 cursor-pointer"
+        @click="deleteProduct(props.productID)"
+      ></i>
     </div>
     <!-- Imagen del Producto -->
     <img
@@ -87,7 +124,7 @@ const add = () => {
       <h2 class="text-xl font-bold">{{ productName }}</h2>
 
       <!-- Estrellas de Calificación -->
-      <div class="flex items-center justify-center mt-1">
+      <div class="flex items-center justify-center mt-1" v-if="!isAdminPage">
         <div class="flex text-yellow-400">
           <i class="fas fa-star"></i>
           <i class="fas fa-star"></i>
@@ -97,6 +134,8 @@ const add = () => {
         </div>
         <span class="text-sm text-gray-500 ml-2">(1)</span>
       </div>
+
+      <div class="" v-if="isAdminPage">{{ props.category }}</div>
 
       <!-- Precio -->
       <div class="flex items-center justify-center mt-3">
@@ -117,7 +156,7 @@ const add = () => {
           </select>
         </div>-->
 
-      <div>
+      <div v-if="!isAdminPage">
         <label for="quantity" class="block text-sm font-medium text-gray-700 mt-5">Cantidad:</label>
         <div class="flex items-center mt-1">
           <button
@@ -144,8 +183,8 @@ const add = () => {
       </div>
 
       <button
-        class="mt-6 w-full bg-yellow-400 text-white font-semibold py-2 px-4 rounded-lg hover:bg-yellow-500"
-        @click="add"
+        class="mt-6 w-full bg-yellow-400 text-white font-semibold py-2 px-4 rounded-lg hover:bg-yellow-500 cursor-pointer"
+        @click.stop="handleButtonClick"
       >
         {{ buttonText }}
       </button>

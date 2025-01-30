@@ -13,7 +13,7 @@ defineProps({
 
 <template>
   <div class="flex flex-col items-center">
-    <h1>{{ productName }}</h1>
+    <h1 class="text-4xl font-bold mb-3 mr-[19.2rem] text-[#7f7f7f]">{{ productName }}</h1>
     <img
       :src="productImage"
       alt="Imagen del producto"

@@ -10,6 +10,7 @@ export interface Fruit {
   stock: number
   url_image: string
   quantity: number
+  category: string
 }
 
 export interface NewFruit {
@@ -63,8 +64,12 @@ async function createFruit(newFruit: NewFruit): Promise<Fruit | null> {
   return response.data
 }
 
+async function deleteFruit(id: number): Promise<void> {
+  await apiClient.delete(`/api/v1/fruits/${id}`)
+}
+
 export const useFruit = (fruitId: number) => {
-  // const queryClient = useQueryClient()
+  const queryClient = useQueryClient()
 
   const { data, isFetching } = useQuery({
     queryKey: ['animals', fruitId],
@@ -72,9 +77,33 @@ export const useFruit = (fruitId: number) => {
     initialData: null,
   })
 
+  const { mutateAsync: remove } = useMutation({
+    mutationKey: ['fruits', fruitId],
+    mutationFn: async () => await deleteFruit(fruitId),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: ['fruits'],
+      })
+    },
+  })
+
+  const { mutateAsync: update } = useMutation({
+    mutationKey: ['fruits', fruitId],
+    mutationFn: async function (payload: NewFruit) {
+      await apiClient.put(`/api/v1/fruits/${fruitId}`, payload)
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: ['fruits'],
+      })
+    },
+  })
+
   return {
     data,
     loading: isFetching,
+    remove,
+    update,
   }
 }
 

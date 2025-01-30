@@ -10,9 +10,6 @@ const route = useRoute()
 
 const id = parseInt(route.params.id as string)
 const fruit = useFruit(id)
-
-console.log('fruit by id ')
-console.log(fruit)
 </script>
 
 <template>
@@ -23,7 +20,11 @@ console.log(fruit)
         :product-name="fruit.data.value.name"
         :productImage="fruit.data.value?.url_image"
       />
-      <ProductDetails :product-name="fruit.data.value.name" :price="fruit.data.value.price" />
+      <ProductDetails
+        :product-name="fruit.data.value.name"
+        :price="fruit.data.value.price"
+        :category="fruit.data.value.category"
+      />
     </div>
   </section>
   <section class="mx-30">

@@ -4,9 +4,19 @@ import Footer from '@/components/Footer.vue'
 import { useFruits } from '@/stores/useFruitsStore.ts'
 import Product from '@/components/ProductCard.vue'
 
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const goToProductPage = (id: number, event: MouseEvent) => {
+  const target = event.target as HTMLElement
+  if (target.tagName.toLowerCase() !== 'button') {
+    router.push(`/fruits/${id}`)
+  }
+}
+
 const fruits = useFruits()
 
-// lista global de frutas
 const listFruits = fruits.data || []
 console.log('ADIOSSSSS', listFruits)
 </script>
@@ -45,6 +55,7 @@ console.log('ADIOSSSSS', listFruits)
         :productName="fruit.name"
         :productImage="fruit.url_image"
         :price="fruit.price"
+        @click="goToProductPage(fruit.id, $event)"
       />
     </div>
   </section>
